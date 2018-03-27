@@ -13,7 +13,7 @@
             </headers>
         </axios>
         <cache>
-            <time>300000</time>
+            <time>3</time>
         </cache>
         <vuex>    
             <state>my.user</state>
