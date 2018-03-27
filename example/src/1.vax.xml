@@ -16,7 +16,6 @@
             <time>5</time>
         </cache>
         <vuex>    
-            <state>my.user</state>
         </vuex>     
     </tablet>
     <tablet>
@@ -30,7 +29,6 @@
             <time>300000</time>
         </cache>
         <vuex>    
-            <state>my.member</state>
         </vuex>     
     </tablet>
 </vax>
