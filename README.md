@@ -1,4 +1,32 @@
 
+<h1>使用方法：</h1>
+<ul>
+            <li>1、在webpack.base.conf.js的rules中添加
+                              {
+                                test: /\.vax.xml$/,
+                                loader: 'vax-loader'
+                              }
+            </li>   
+            <li>2、在src文件夹下放置 1.vax.xml配置文件</li>
+            <li>3、在main.js文件中引入1.vax.xml文件，返回的vax变量就是一个store了
+                        var vax = require('./1.vax.xml')
+                        Vue.use(Vuex)
+                        Vue.config.productionTip = false
+                        const store = new Vuex.Store(vax);
+                        new Vue({
+                          el: '#app',
+                          router,
+                          store,
+                          components: { App },
+                          template: '<App/>'
+                        })
+            </li>
+            <li>4、在vue文件中直接向vuex一样调用就行了：                   
+                  this.$store.dispatch("UserLogin",[{key: "loginname", value: "admin"}, {key: "password", value: "admin"}])  
+            </li>
+
+</ul>
+
 
 这是一个用于Vue-cli的loader，根据.vax.xml文件中配置，在Vue 中自动生成Vuex、Axios、Cache文件，将前端工作完全不需考虑ajax和vue的状态管理这些繁杂的事情，一步配置，代码自动生成。
 
