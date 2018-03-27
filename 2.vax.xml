@@ -16,7 +16,6 @@
             <time>3</time>
         </cache>
         <vuex>    
-            <state>my.user</state>
         </vuex>     
     </tablet>
 </vax>
