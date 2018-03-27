@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<vax>
+    <tablet>
+        <name>GETUSER</name>
+        <hook>./usertroller</hook>
+        <axios>
+            <method>POST</method>
+            <baseURL>http://www.server.com</baseURL>
+            <url>/api/user</url>
+            <withCredentials>true</withCredentials>
+            <headers>
+                <Content-Type>application/x-www-form-urlencoded</Content-Type>
+            </headers>
+        </axios>
+        <cache>
+            <time>300000</time>
+        </cache>
+        <vuex>    
+            <state>my.user</state>
+        </vuex>     
+    </tablet>
+</vax>

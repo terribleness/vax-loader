@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<vax>
+    <tablet>
+        <name>UserLogin</name>
+        <hook>./usertroller</hook>
+        <axios>
+            <method>POST</method>
+            <baseURL>http://tt.com</baseURL>
+            <url>/api/UserLogin</url>
+            <withCredentials>true</withCredentials>
+            <headers>
+                <Content-Type>application/json; charset=utf-8</Content-Type>
+            </headers>
+        </axios>
+        <cache>
+            <time>5</time>
+        </cache>
+        <vuex>    
+            <state>my.user</state>
+        </vuex>     
+    </tablet>
+    <tablet>
+        <name>GETMEMBER</name>
+        <axios>
+            <method>GET</method>
+            <baseURL>http://www.server.com</baseURL>
+            <url>/api/member</url>
+        </axios>
+        <cache>
+            <time>300000</time>
+        </cache>
+        <vuex>    
+            <state>my.member</state>
+        </vuex>     
+    </tablet>
+</vax>
