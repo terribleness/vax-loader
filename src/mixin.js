@@ -51,7 +51,7 @@ module.exports = initMixin = (Vax) => {
         // merge
         return `(function(){
                 const ExpiredStorage = require('expired-storage');
-                const Vue = require('vue');
+                const Vue = require('vue').default;
                 const axios = require('axios');
                 const cache = new ExpiredStorage();
                 ${Array.from(new Set(me._hook)).join(`
