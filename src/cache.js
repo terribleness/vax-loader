@@ -9,7 +9,7 @@ module.exports = initCache = (Vax) => {
         const time = !table.cache ? year : !table.cache.time ? year : table.cache.time;
         const log =  process.env.NODE_ENV !== 'production' ? "console.log('从cache中读取数据');" : '';
         let template = table.cache ? `
-                const data = cache.getJson(cacheKey);
+                let data = cache.getJson(cacheKey);
                 if(data){
                     ${log}
                     ${vuex.commit}
