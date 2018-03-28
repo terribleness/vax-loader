@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <vax>
     <table>
-        <name>GETUSER</name>
+        <name>GET.USER.INFO</name>
         <hook>./usertroller</hook>
         <axios>
             <method>POST</method>

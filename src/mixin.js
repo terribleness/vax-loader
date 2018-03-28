@@ -18,6 +18,7 @@ module.exports = initMixin = (Vax) => {
                         throw new Error(`ERROR：.vax.xml配置文件中的每个table中name必填且唯一 。${JSON.stringify(table)}`);
                     }
                     else {
+                        table.name = table.name.replace(/\./g,'_')
                         names.push(table.name)
                     }
                 });
@@ -25,6 +26,9 @@ module.exports = initMixin = (Vax) => {
             else {
                 if (!me._json.vax.table.name) {
                     throw new Error(`ERROR：.vax.xml配置文件中的每个table中name必填且唯一 。${JSON.stringify(me._json.vax.table)}`);
+                }
+                else{                    
+                    me._json.vax.table.name = me._json.vax.table.name.replace(/\./g,'_')
                 }
             }
         }
@@ -51,7 +55,7 @@ module.exports = initMixin = (Vax) => {
         // merge
         return `(function(){
                 const ExpiredStorage = require('expired-storage');
-                const Vue = require('vue').default;
+                const vue = require('vue');
                 const axios = require('axios');
                 const cache = new ExpiredStorage();
                 ${Array.from(new Set(me._hook)).join(`
@@ -91,10 +95,8 @@ module.exports = initMixin = (Vax) => {
                         ${vuex.mutation}
                     `)
                     me._stackAction.push(`            
-                        ${vuex.action}{   
-                            let p = { commit, state ,param };
-                            ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise(p)') + '===false){reject();return;}'}
-                            param = p.param;                    
+                        ${vuex.action}{        
+                            ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise({ commit, state },param)') + '===false){reject();return;}'}                    
                             return new Promise(function(resolve,reject){                                
                                 ${cache.template}
                                 ${axios.template}
