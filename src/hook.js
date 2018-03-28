@@ -3,13 +3,16 @@
 module.exports = initHook = (Vax) => {
 
     Vax.hook = {
-        beforePromise({ commit, state }, param) {
+        // { commit, state }, param
+        beforePromise(p) {
             param = param.array || param;
         },
-        beforeAxios(param) {
+        // param
+        beforeAxios(p) {
 
         },
-        afterAxios(param, data) {
+        // param, data
+        afterAxios(p) {
 
         },
         // beforeCache(param) {
@@ -18,10 +21,12 @@ module.exports = initHook = (Vax) => {
         // afterCache(param, data) {
 
         // },
-        beforeVuex({ commit, state }, param) {
+        // { commit, state }, param
+        beforeVuex(p) {
 
         },
-        afterVuex({ commit, state }, param, data) {
+        // { commit, state }, param, data
+        afterVuex(p) {
 
         }
     }

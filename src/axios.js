@@ -28,13 +28,17 @@ module.exports = initAxios = (Vax) => {
 
         callback(vuex, cache,
             {
-                template: table.axios ? `
-                        ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforeAxios && ' + table.hookClass + '.beforeAxios(param)') + '===false){reject(data);return;}'}
+                template: table.axios ? `              
+                        ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforeAxios && ' + table.hookClass + '.beforeAxios(p)') + '===false){reject(param);return;}'}
+                        param = p.param;
                         axios(${JSON.stringify(options).replace('"__param__"','param')})
                         .then(function(data) {
                             if(data.status == 200){
                                 data = data.data;
-                                ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.afterAxios && ' + table.hookClass + '.afterAxios(param,data)') + '===false){reject(data);return;}'}
+                                p.data = data;
+                                ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.afterAxios && ' + table.hookClass + '.afterAxios(p)') + '===false){reject(data);return;}'}
+                                data = p.data;
+                                param = p.param;
                                 ${template}
                                 resolve(data);
                             }
