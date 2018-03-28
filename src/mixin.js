@@ -19,12 +19,16 @@ module.exports = initMixin = (Vax) => {
                     }
                     else {
                         names.push(table.name)
+                        table.name = table.name.replace(/\./g,'_');
                     }
                 });
             }
             else {
                 if (!me._json.vax.table.name) {
                     throw new Error(`ERROR：.vax.xml配置文件中的每个table中name必填且唯一 。${JSON.stringify(me._json.vax.table)}`);
+                }
+                else{
+                    me._json.vax.table.name = me._json.vax.table.name.replace(/\./g,'_');
                 }
             }
         }
@@ -79,7 +83,7 @@ module.exports = initMixin = (Vax) => {
             Vax.buildCache(table, vuex, (vuex, cache) => {
                 Vax.buildAxios(table, vuex, cache, (vuex, cache, axios) => {
                     me._hook.push(`
-                        ${!table.hook ? '' : 'const ' + table.hookClass + " = require('" + table.hook + "');"}
+                        ${!table.hook ? '' : 'const ' + table.hookClass + " = require('" + table.hook + "').default || require('" + table.hook + "');"}
                     `)
                     vuex.state && me._stackState.push(`
                         ${vuex.state}
