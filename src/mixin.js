@@ -9,6 +9,26 @@ module.exports = initMixin = (Vax) => {
         // build xml
         me.xmlParse(me, source)
 
+        // table.name required and unique
+        if (me._json && me._json.vax && me._json.vax.table) {
+            let names = [];
+            if (me._json.vax.table instanceof Array) {
+                me._json.vax.table.forEach((table) => {
+                    if (!table.name || names.includes(table.name)) {
+                        throw new Error(`ERROR：.vax.xml配置文件中的每个table中name必填且唯一 。${JSON.stringify(table)}`);
+                    }
+                    else {
+                        names.push(table.name)
+                    }
+                });
+            }
+            else {
+                if (!me._json.vax.table.name) {
+                    throw new Error(`ERROR：.vax.xml配置文件中的每个table中name必填且唯一 。${JSON.stringify(me._json.vax.table)}`);
+                }
+            }
+        }
+
         // import hookcontroller
         me._hook = [];
 
@@ -17,14 +37,14 @@ module.exports = initMixin = (Vax) => {
         me._stackGetter = [];
         me._stackMutation = [];
         me._stackAction = [];
-        if (me._json && me._json.vax && me._json.vax.tablet) {
-            if (me._json.vax.tablet instanceof Array) {
-                me._json.vax.tablet.forEach((tablet) => {
-                    me.render(me, me.hook(tablet))
+        if (me._json && me._json.vax && me._json.vax.table) {
+            if (me._json.vax.table instanceof Array) {
+                me._json.vax.table.forEach((table) => {
+                    me.render(me, me.hook(table))
                 })
             }
             else {
-                me.render(me, me.hook(me._json.vax.tablet))
+                me.render(me, me.hook(me._json.vax.table))
             }
         }
 
@@ -34,7 +54,7 @@ module.exports = initMixin = (Vax) => {
                 const vue = require('vue');
                 const axios = require('axios');
                 const cache = new ExpiredStorage();
-                ${me._hook.join(`
+                ${Array.from(new Set(me._hook)).join(`
                 `)}
                 return {
                     state: {
@@ -54,12 +74,12 @@ module.exports = initMixin = (Vax) => {
         `
     }
 
-    Vax.prototype.render = (me, tablet) => {
-        Vax.buildVuex(tablet, (vuex) => {
-            Vax.buildCache(tablet, vuex, (vuex, cache) => {
-                Vax.buildAxios(tablet, vuex, cache, (vuex, cache, axios) => {
+    Vax.prototype.render = (me, table) => {
+        Vax.buildVuex(table, (vuex) => {
+            Vax.buildCache(table, vuex, (vuex, cache) => {
+                Vax.buildAxios(table, vuex, cache, (vuex, cache, axios) => {
                     me._hook.push(`
-                        ${!tablet.hook ? '' : 'const ' + tablet.hookClass + " = require('" + tablet.hook + "');"}
+                        ${!table.hook ? '' : 'const ' + table.hookClass + " = require('" + table.hook + "');"}
                     `)
                     vuex.state && me._stackState.push(`
                         ${vuex.state}
@@ -71,8 +91,10 @@ module.exports = initMixin = (Vax) => {
                         ${vuex.mutation}
                     `)
                     me._stackAction.push(`            
-                        ${vuex.action}{        
-                            ${!tablet.hookClass ? '' : 'if('+(tablet.hookClass + '.beforePromise && ' + tablet.hookClass + '.beforePromise({ commit, state },param)')+'===false){reject();return;}'}                    
+                        ${vuex.action}{   
+                            let p = { commit, state ,param };
+                            ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise(p)') + '===false){reject();return;}'}
+                            param = p.param;                    
                             return new Promise(function(resolve,reject){                                
                                 ${cache.template}
                                 ${axios.template}

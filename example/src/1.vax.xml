@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <vax>
-    <tablet>
+    <table>
         <name>UserLogin</name>
         <hook>./usertroller</hook>
         <axios>
@@ -17,8 +17,8 @@
         </cache>
         <vuex>    
         </vuex>     
-    </tablet>
-    <tablet>
+    </table>
+    <table>
         <name>GETMEMBER</name>
         <axios>
             <method>GET</method>
@@ -30,5 +30,5 @@
         </cache>
         <vuex>    
         </vuex>     
-    </tablet>
+    </table>
 </vax>

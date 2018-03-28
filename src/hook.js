@@ -3,13 +3,16 @@
 module.exports = initHook = (Vax) => {
 
     Vax.hook = {
-        beforePromise({ commit, state }, param) {
+        // { commit, state }, param
+        beforePromise(p) {
+            param = param.array || param;
+        },
+        // param
+        beforeAxios(p) {
 
         },
-        beforeAxios(param) {
-
-        },
-        afterAxios(param, data) {
+        // param, data
+        afterAxios(p) {
 
         },
         // beforeCache(param) {
@@ -18,26 +21,28 @@ module.exports = initHook = (Vax) => {
         // afterCache(param, data) {
 
         // },
-        beforeVuex({ commit, state }, param) {
+        // { commit, state }, param
+        beforeVuex(p) {
 
         },
-        afterVuex({ commit, state }, param, data) {
+        // { commit, state }, param, data
+        afterVuex(p) {
 
         }
     }
 
-    Vax.prototype.hook = (tablet) => {
-        tablet.hookClass = '';
-        if (tablet.hook) {
-            tablet.hookClass = tablet.name + '_' + tablet.hook.split('/').pop();
-            tablet.hookMethod = Vax.hook;
-            //const customHook = require(tablet.hook);
+    Vax.prototype.hook = (table) => {
+        table.hookClass = '';
+        if (table.hook) {
+            table.hookClass = table.name + '_' + table.hook.split('/').pop();
+            table.hookMethod = Vax.hook;
+            //const customHook = require(table.hook);
             // for (let key in Vax.hook) {
             //     if (Vax.hook.hasOwnProperty(key) && Object.prototype.toString.call(customHook[key]) == '[object Function]') {
-            //         tablet.hookMethod[key] = customHook[key];
+            //         table.hookMethod[key] = customHook[key];
             //     }
             // }
         }
-        return tablet;
+        return table;
     }
 }

@@ -11,7 +11,8 @@
 export default {
   name: 'App',
   created(){
-    this.$store.dispatch("UserLogin",[{key: "loginname", value: "admin"}, {key: "password", value: "admin"}])
+    },b=>{
+    })
   }
 }
 </script>

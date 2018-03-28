@@ -6,35 +6,39 @@ const axios = require('axios')
 module.exports = initAxios = (Vax) => {
     Vax.$axios = axios;
 
-    Vax.buildAxios = (tablet = {}, vuex, cache, callback) => {
+    Vax.buildAxios = (table = {}, vuex, cache, callback) => {
         let options = {}
 
-        if (tablet.axios) {
-            options = tablet.axios;
+        if (table.axios) {
+            options = table.axios;
             // options.baseURL = process.env.NODE_ENV !== 'production' ? '' : options.baseURL;
             options.method.toLowerCase() === 'post' ? options.data = '__param__' : options.param = '__param__'
         }
 
         let template = '';
 
-        if (tablet.cache) {
+        if (table.cache) {
             template += cache.set + ';';
         }
 
-        if (tablet.vuex) {
+        if (table.vuex) {
             template += vuex.commit;
         }
 
 
         callback(vuex, cache,
             {
-                template: tablet.axios ? `
-                        ${!tablet.hookClass ? '' : 'if(' + (tablet.hookClass + '.beforeAxios && ' + tablet.hookClass + '.beforeAxios(param)') + '===false){reject(data);return;}'}
+                template: table.axios ? `              
+                        ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforeAxios && ' + table.hookClass + '.beforeAxios(p)') + '===false){reject(param);return;}'}
+                        param = p.param;
                         axios(${JSON.stringify(options).replace('"__param__"','param')})
                         .then(function(data) {
                             if(data.status == 200){
                                 data = data.data;
-                                ${!tablet.hookClass ? '' : 'if(' + (tablet.hookClass + '.afterAxios && ' + tablet.hookClass + '.afterAxios(param,data)') + '===false){reject(data);return;}'}
+                                p.data = data;
+                                ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.afterAxios && ' + table.hookClass + '.afterAxios(p)') + '===false){reject(data);return;}'}
+                                data = p.data;
+                                param = p.param;
                                 ${template}
                                 resolve(data);
                             }

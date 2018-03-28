@@ -8,17 +8,20 @@ module.exports = initVuex = (Vax) => {
     //Vax.$vue = vue;
     Vax.$vuex = vuex;
 
-    Vax.buildVuex = (tablet = {}, callback) => {
-        const commit = !tablet.vuex ? '' : `${!tablet.hookClass?'':('if('+(tablet.hookClass + '.beforeVuex && ' + tablet.hookClass+'.beforeVuex({ commit, state },param,data)')+'===false){reject(data);return;}')} 
-        commit('${tablet.name}',data); 
-        ${!tablet.hookClass?'':'if('+(tablet.hookClass + '.afterVuex && ' + tablet.hookClass+'.afterVuex({ commit, state },param,data)')+'===false){reject(data);return;}'} 
+    Vax.buildVuex = (table = {}, callback) => {
+        const commit = !table.vuex ? '' : `p.param = param;p.data = data;
+        ${!table.hookClass?'':('if('+(table.hookClass + '.beforeVuex && ' + table.hookClass+'.beforeVuex({ commit, state ,param,data})')+'===false){reject(data);return;}')} 
+        param = p.param;data = p.data;
+        commit('${table.name}',data); 
+        ${!table.hookClass?'':'if('+(table.hookClass + '.afterVuex && ' + table.hookClass+'.afterVuex({ commit, state ,param,data})')+'===false){reject(data);return;}'} 
+        param = p.param;data = p.data;
         `;
-        const stateName = (tablet.name + '_' + (!tablet.vuex ? '' : !tablet.vuex.state ? `${tablet.name}` : `${tablet.vuex.state}`)).replace(/\./g,'_');
+        const stateName = (table.name + '_' + (!table.vuex ? '' : !table.vuex.state ? `${table.name}` : `${table.vuex.state}`)).replace(/\./g,'_');
         callback({
-            action: `${tablet.name}({ commit, state },param)`,
+            action: `${table.name}({ commit, state },param)`,
             commit,
             template: (function () {
-                if (!tablet.cache && !tablet.axios) {
+                if (!table.cache && !table.axios) {
                     return `
                         ${commit}
                         resolve(data);
@@ -29,23 +32,28 @@ module.exports = initVuex = (Vax) => {
                 }
             }()),
             mutation: (function () {
-                const mutationName = !tablet.vuex ? '' : !tablet.vuex.mutation ? `${tablet.name}` : `${tablet.vuex.mutation}`;
+                const mutationName = !table.vuex ? '' : !table.vuex.mutation ? `${table.name}` : `${table.vuex.mutation}`;
                 if (!mutationName) return '';
                 return `
                         ${mutationName}:(state,data)=>{
-                            // if(Object.prototype.toString.call(data)=='[object Object]'){
-                            //     for(const dkey in data){
-                            //         state.${stateName}[key] = data[key];
-                            //     }
-                            // }
-                            // else{
-                                state.${stateName} = data;
-                            // }
+                            const vueSet = (sta,key,data) => {
+                                if(Object.prototype.toString.call(data)=='[object Object]'){
+                                    sta[key] = {};
+                                    for(const dkey in data){
+                                        Vue.set(sta[key],dkey,null);
+                                        vueSet(sta[key],dkey,data[dkey]);
+                                    }
+                                }
+                                else{
+                                    sta[key] = data;
+                                }
+                            }
+                            vueSet(state,'${stateName}',data)
                         }                   
                     `
             }()),
             getter: (function () {
-                const getterName = !tablet.vuex ? '' : !tablet.vuex.getter ? `${tablet.name}` : `${tablet.vuex.getter}`;
+                const getterName = !table.vuex ? '' : !table.vuex.getter ? `${table.name}` : `${table.vuex.getter}`;
                 if (!getterName) return '';
                 return `
                         ${getterName}:(state)=>{
