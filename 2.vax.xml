@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <vax>
     <table>
-        <name>GET.USER.INFO</name>
+        <name>USERINFO</name>
         <hook>./usertroller</hook>
         <axios>
             <method>POST</method>
@@ -15,6 +15,21 @@
         <cache>
             <time>3</time>
         </cache>
+        <vuex>    
+        </vuex>     
+    </table>    
+    <table>
+        <name>MEMBERINFO</name>
+        <hook>./membertroller</hook>
+        <axios>
+            <method>POST</method>
+            <baseURL>http://www.server.com</baseURL>
+            <url>/api/member</url>
+            <withCredentials>true</withCredentials>
+            <headers>
+                <Content-Type>application/x-www-form-urlencoded</Content-Type>
+            </headers>
+        </axios>
         <vuex>    
         </vuex>     
     </table>
