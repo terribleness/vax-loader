@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <vax>
     <table>
-        <name>GET.USER.INFO</name>
-        <hook>./usertroller</hook>
+        <name>NOTICE</name>
+        <hook>./hooks/getcontent</hook>
         <axios>
             <method>POST</method>
-            <baseURL>http://www.server.com</baseURL>
-            <url>/api/user</url>
+            <baseURL>http://api.server.ws/</baseURL>
+            <url>/api/GetPageContent?contentId=WEB.HOME.NOTICE</url>
             <withCredentials>true</withCredentials>
             <headers>
                 <Content-Type>application/x-www-form-urlencoded</Content-Type>
@@ -15,6 +15,24 @@
         <cache>
             <time>3</time>
         </cache>
+        <vuex>    
+        </vuex>     
+    </table>
+    <table>
+        <name>WINNING</name>
+        <hook>./hooks/getcontent</hook>
+        <axios>
+            <method>POST</method>
+            <baseURL>http://api.server.ws/</baseURL>
+            <url>/api/GetPageContent?contentId=WEB.HOME.WINNING</url>
+            <withCredentials>true</withCredentials>
+            <headers>
+                <Content-Type>application/x-www-form-urlencoded</Content-Type>
+            </headers>
+        </axios>
+        <!-- <cache>
+            <time>5</time>
+        </cache> -->
         <vuex>    
         </vuex>     
     </table>
