@@ -2,7 +2,7 @@
 这是一个用于Vue-cli的loader，根据.vax.xml文件中配置，在Vue 中自动生成Vuex、Axios、Cache文件，前端工作将完全不需考虑ajax和vue的状态管理这些繁杂的事情，一步配置，代码自动生成。
 <a href="https://github.com/terribleness/vax-loader/issues/2" target="_blank">vax-loader生成结构例子</a>
 </p>
-<h2>5步完成，修改下图红框出文件：</h2>
+<h2>5步完成，修改下图红框处文件：</h2>
         <p><img src="https://user-images.githubusercontent.com/37056647/38087033-3c4be2d0-3389-11e8-88b3-6a3b3b963f6e.PNG" alt="1" style="max-width:100%;">
           <table>
             <tbody>
