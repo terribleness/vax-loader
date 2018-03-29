@@ -70,7 +70,8 @@
                   </table>
               <p><h3><a name="user-content-ext2">hook钩子函数使用方法</a></h3>
                   <img src="https://user-images.githubusercontent.com/37056647/38088606-f7cb6a30-338e-11e8-9d87-50c377c9091a.PNG" alt="7" style="max-width:100%;">
-                    <table>
+                  <strong>一般是不需要返回值的，如果返回false，则终止流程</strong>
+                    <table>
                       <tbody><tr><td><strong>钩子名称</strong></td><td><strong>触发时间<strong></strong></strong></td><td><strong>参数格式</strong></td></tr>
                         <tr><td>beforePromise</td><td>任何操作前</td><td>p参数内容为{commit,state,param}三个参数commit是vuex中commit；state是vuex中state；param是dispatch传递的参数，如果要修改param，需要为p.param = 这样写法</td></tr>
                         <tr><td>beforeAxios</td><td>开始触发axios前</td><td>p参数内容为{commit,state,param}三个参数，同上</td></tr>
