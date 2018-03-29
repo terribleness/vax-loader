@@ -18,22 +18,4 @@
         <vuex>    
         </vuex>     
     </table>
-    <table>
-        <name>GETMEMBER</name>
-        <hook>./usertroller</hook>
-        <axios>
-            <method>POST</method>
-            <baseURL>http://www.server.com</baseURL>
-            <url>/api/user</url>
-            <withCredentials>true</withCredentials>
-            <headers>
-                <Content-Type>application/x-www-form-urlencoded</Content-Type>
-            </headers>
-        </axios>
-        <cache>
-            <time>3</time>
-        </cache>
-        <vuex>    
-        </vuex>     
-    </table>
 </vax>

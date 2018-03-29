@@ -14,6 +14,7 @@
     "expired-storage": "^1.0.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vax-loader":"^1.0.6",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -1,25 +1,27 @@
 
 
 
-module.exports = {
+export default {
 
-    beforePromise({ commit, state }, param) {
+    beforePromise(p) {
         //param.a=4
+        //console.log(this)
     },
-    beforeAxios(param) {
+    beforeAxios(p) {
         // param.a = {
         //     b: 2
         // }
         // return false;
     },
-    afterAxios(param, data) {
+    afterAxios(p) {
         // delete data.Passed
         // data = data.Data
+        p.data = JSON.parse(p.data.Data);
     },
-    beforeVuex({ commit, state }, param) {
+    beforeVuex(p) {
 
     },
-    afterVuex({ commit, state }, param, data) {
+    afterVuex(p) {
 
     }
 }

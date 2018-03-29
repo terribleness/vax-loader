@@ -1,16 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
 <vax>
     <table>
-        <name>UserLogin</name>
+        <name>NOTICE</name>
         <hook>./usertroller</hook>
         <axios>
             <method>POST</method>
-            <baseURL>http://tt.com</baseURL>
-            <url>/api/UserLogin</url>
-            <withCredentials>true</withCredentials>
-            <headers>
-                <Content-Type>application/json; charset=utf-8</Content-Type>
-            </headers>
+            <baseURL>http://api.server.ws/</baseURL>
+            <url>/api/GetPageContent?contentId=WEB.HOME.NOTICE</url>
+        </axios>
+        <!-- <cache>
+            <time>5</time>
+        </cache> -->
+        <vuex>    
+        </vuex>     
+    </table>
+    <table>
+        <name>WINNING</name>
+        <hook>./usertroller</hook>
+        <axios>
+            <method>POST</method>
+            <baseURL>http://api.server.ws/</baseURL>
+            <url>/api/GetPageContent?contentId=WEB.HOME.Winning</url>
         </axios>
         <cache>
             <time>5</time>
@@ -19,15 +29,16 @@
         </vuex>     
     </table>
     <table>
-        <name>GETMEMBER</name>
+        <name>Promos</name>
+        <hook>./usertroller</hook>
         <axios>
-            <method>GET</method>
-            <baseURL>http://www.server.com</baseURL>
-            <url>/api/member</url>
+            <method>POST</method>
+            <baseURL>http://api.server.ws/</baseURL>
+            <url>/api/GetPromoContent?contentId=Web.Promos</url>
         </axios>
-        <cache>
-            <time>300000</time>
-        </cache>
+        <!-- <cache>
+            <time>5</time>
+        </cache> -->
         <vuex>    
         </vuex>     
     </table>
