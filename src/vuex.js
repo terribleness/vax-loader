@@ -10,12 +10,18 @@ module.exports = initVuex = (Vax) => {
 
     Vax.buildVuex = (table = {}, callback) => {
         const commit = !table.vuex ? '' : `p.param = param;p.data = data;
-        ${!table.hookClass?'':('if('+(table.hookClass + '.beforeVuex && ' + table.hookClass+'.beforeVuex({ commit, state ,param,data})')+'===false){reject(data);return;}')} 
-        param = p.param;data = p.data;
-        commit('${table.name}',data); 
-        ${!table.hookClass?'':'if('+(table.hookClass + '.afterVuex && ' + table.hookClass+'.afterVuex({ commit, state ,param,data})')+'===false){reject(data);return;}'} 
-        param = p.param;data = p.data;
-        `;
+                            ${!table.hookClass?'':('if('+(table.hookClass + '.beforeVuex && ' + table.hookClass+'.beforeVuex({ commit, state ,param,data})')+`===false){
+                                reject(data);
+                                return;
+                            }`)} 
+                            param = p.param;data = p.data;
+                            commit('${table.name}',data); 
+                                ${!table.hookClass?'':'if('+(table.hookClass + '.afterVuex && ' + table.hookClass+'.afterVuex({ commit, state ,param,data})')+`===false){
+                                    reject(data);
+                                    return;
+                                }`} 
+                                param = p.param;data = p.data;
+                            `;
         const stateName = table.name;
         // const stateName = (table.name + '_' + (!table.vuex ? '' : !table.vuex.state ? `${table.name}` : `${table.vuex.state}`)).replace(/\./g,'_');
         callback({

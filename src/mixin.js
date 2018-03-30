@@ -83,7 +83,7 @@ module.exports = initMixin = (Vax) => {
             Vax.buildCache(table, vuex, (vuex, cache) => {
                 Vax.buildAxios(table, vuex, cache, (vuex, cache, axios) => {
                     me._hook.push(`
-                        ${!table.hook ? '' : 'const ' + table.hookClass + " = require('" + table.hook + "').default || require('" + table.hook + "');"}
+                ${!table.hook ? '' : 'const ' + table.hookClass + " = require('" + table.hook + "').default || require('" + table.hook + "');"}
                     `)
                     vuex.state && me._stackState.push(`
                         ${vuex.state}
@@ -96,15 +96,18 @@ module.exports = initMixin = (Vax) => {
                     `)
                     me._stackAction.push(`            
                         ${vuex.action}{   
-                            let p = { commit, state ,param };
-                            ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise(p)') + '===false){reject();return;}'}
-                            param = p.param;                    
-                            return new Promise(function(resolve,reject){                                
-                                ${cache.template}
-                                ${axios.template}
-                                ${vuex.template}
-                            });
-                        }                    
+                        let p = { commit, state ,param };
+                        ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise(p)') + `===false){
+                            reject(p.param);
+                            return;
+                        }`}
+                        param = p.param;                    
+                        return new Promise(function(resolve,reject){                                
+                            ${cache.template}
+                            ${axios.template}
+                            ${vuex.template}
+                        });
+                    }                    
                     `)
                 })
             })

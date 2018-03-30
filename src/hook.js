@@ -5,7 +5,7 @@ module.exports = initHook = (Vax) => {
     Vax.hook = {
         // { commit, state }, param
         beforePromise(p) {
-            param = param.array || param;
+            //p.param = p.param.array || p.param;
         },
         // param
         beforeAxios(p) {
