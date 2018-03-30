@@ -6,7 +6,7 @@
         <axios>
             <method>POST</method>
             <baseURL>http://api.server.ws/</baseURL>
-            <url>/api/GetPageContent?contentId=WEB.HOME.NOTICE</url>
+            <url>/api/GetPageContent</url>
             <withCredentials>true</withCredentials>
             <headers>
                 <Content-Type>application/x-www-form-urlencoded</Content-Type>
