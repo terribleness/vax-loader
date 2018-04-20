@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-var vax = require('./1.vax.xml')
+import vax from './1.vax.xml'
 
 console.log(vax)
 
