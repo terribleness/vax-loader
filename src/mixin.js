@@ -97,6 +97,7 @@ module.exports = initMixin = (Vax) => {
                     me._stackAction.push(`            
                         ${vuex.action}{   
                         let p = { commit, state ,param };
+                        let data = param;
                         ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforePromise && ' + table.hookClass + '.beforePromise(p)') + `===false){
                             reject(p.param);
                             return;
