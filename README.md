@@ -18,7 +18,7 @@
                 <td>
                       {
                         test: /\.vax.xml$/,
-                    loader: 'vax-loader'
+                    loader: [{ loader : 'babel-loader'},{ loader : 'vax-loader'}]
                 }
               <a href="#ext1">查看下图例子</a>
                 </td>
