@@ -35,7 +35,7 @@ module.exports = initAxios = (Vax) => {
                             p.axios.data = p.param;
                         }  
                         else{
-                            p.axios.param = p.param ;
+                            p.axios.params = p.param ;
                         }
                         ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforeAxios && ' + table.hookClass + '.beforeAxios(p)') + `===false){
                             reject(param);
