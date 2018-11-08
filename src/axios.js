@@ -6,13 +6,14 @@ const axios = require('axios')
 module.exports = initAxios = (Vax) => {
     Vax.$axios = axios;
 
+    
     Vax.buildAxios = (table = {}, vuex, cache, callback) => {
         let options = {}
 
         if (table.axios) {
             options = table.axios;
             options.baseURL = process.env.NODE_ENV !== 'production' ? '' : options.baseURL;
-            options.method.toLowerCase() === 'post' ? options.data = '__param__' : options.param = '__param__'
+            options.withCredentials = options.withCredentials ? true : false;
         }
 
         let template = '';
@@ -28,13 +29,19 @@ module.exports = initAxios = (Vax) => {
 
         callback(vuex, cache,
             {
-                template: table.axios ? `              
+                template: table.axios ? `   
+                        p.axios = ${JSON.stringify(options)};   
+                        if(p.axios.method && p.axios.method.toLowerCase() === 'post'){
+                            p.axios.data = p.param;
+                        }  
+                        else{
+                            p.axios.param = p.param ;
+                        }
                         ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.beforeAxios && ' + table.hookClass + '.beforeAxios(p)') + `===false){
                             reject(param);
                             return;
                         }`}
-                        param = p.param;
-                        axios(${JSON.stringify(options).replace('"__param__"','param')})
+                        axios(p.axios)
                         .then(function(data) {
                             if(data.status == 200){
                                 data = data.data;
