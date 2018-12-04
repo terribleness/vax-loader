@@ -31,7 +31,7 @@ module.exports = initAxios = (Vax) => {
             {
                 template: table.axios ? `   
                         p.axios = ${JSON.stringify(options)};   
-                        if(p.axios.method && p.axios.method.toLowerCase() === 'post'){
+                        if(p.axios.method && (p.axios.method.toLowerCase() === 'post' || p.axios.method.toLowerCase() === 'put')){
                             p.axios.data = p.param;
                         }  
                         else{
