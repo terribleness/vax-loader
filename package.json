@@ -1,6 +1,6 @@
 {
   "name": "vax-loader",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "这是一个用于Vue-cli的loader，根据.vax.xml文件中配置，在Vue 中自动生成Vuex、Axios、Cache文件，前端工作将完全不需考虑ajax和vue的状态管理这些繁杂的事情，一步配置，代码自动生成。",
   "main": "index.js",
   "scripts": {

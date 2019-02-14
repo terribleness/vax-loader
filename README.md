@@ -78,6 +78,7 @@
                         <tr><td>afterAxios</td><td>axios后获得数据了</td><td>p参数内容为{commit,state,param,data}四个参数，同上，data为返回数据，如果修改data，需要为p.data= 这样写法</td></tr>
                         <tr><td>beforeVuex</td><td>vuex触发commit前</td><td>p参数内容为{commit,state,param,data}四个参数，同上</td></tr>
                         <tr><td>afterVuex</td><td>vuex触发commit后</td><td>p参数内容为{commit,state,param,data}四个参数，同上</td></tr>
+                        <tr><td>netError</td><td>axios网络异常，不为200后</td><td>p参数内容为{commit,state,param,data}四个参数，同上</td></tr>
   </tbody>
 </table>
 </p>

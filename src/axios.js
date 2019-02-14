@@ -43,6 +43,7 @@ module.exports = initAxios = (Vax) => {
                         }`}
                         axios(p.axios)
                         .then(function(data) {
+                            p.data = data;
                             if(data.status == 200){
                                 data = data.data;
                                 p.data = data;
@@ -56,7 +57,10 @@ module.exports = initAxios = (Vax) => {
                                 resolve(data);
                             }
                             else{
-                                reject(data);
+                                ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.netError && ' + table.hookClass + '.netError(p)') + `===false){
+                                    reject(data);
+                                    return;
+                                }`}
                             }
                         },reject);
                 `: ''
