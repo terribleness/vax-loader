@@ -65,7 +65,7 @@ module.exports = initAxios = (Vax) => {
                         },data=>{
                             p.data = data;
                             ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.netError && ' + table.hookClass + '.netError(p)') + `===false){
-                                reject(err);
+                                reject(data);
                                 return;
                             }`}
                         });
