@@ -62,7 +62,13 @@ module.exports = initAxios = (Vax) => {
                                     return;
                                 }`}
                             }
-                        },reject);
+                        },data=>{
+                            p.data = data;
+                            ${!table.hookClass ? '' : 'if(' + (table.hookClass + '.netError && ' + table.hookClass + '.netError(p)') + `===false){
+                                reject(err);
+                                return;
+                            }`}
+                        });
                 `: ''
             }
         )
