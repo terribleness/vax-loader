@@ -70,7 +70,12 @@ module.exports = initVuex = (Vax) => {
             }()),
             state: (function () {
                 if (!stateName) return '';
-                return `${stateName}:null`
+                if(table.data){
+                    return `${stateName}:${table.data}`
+                }
+                else{
+                    return `${stateName}:null`
+                }
             }())
         })
     }
